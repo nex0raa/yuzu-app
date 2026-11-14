@@ -1,0 +1,44 @@
+name: Diagnose launch
+on:
+  push:
+    branches: ['claude/diagnose-*']
+permissions:
+  contents: read
+jobs:
+  launch:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - name: Download the published release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v1.0.0-1 -R "$GITHUB_REPOSITORY" -p Yuzu-macOS-arm64.zip -D "$RUNNER_TEMP"
+          cd "$RUNNER_TEMP" && ditto -x -k Yuzu-macOS-arm64.zip . && ls -la Yuzu.app/Contents/MacOS
+      - name: Inspect signature and libraries
+        run: |
+          cd "$RUNNER_TEMP"
+          codesign -dv --verbose=2 Yuzu.app 2>&1 || true
+          codesign --verify --deep --strict --verbose=2 Yuzu.app 2>&1 || true
+          otool -L Yuzu.app/Contents/MacOS/Yuzu | head -40
+          otool -l Yuzu.app/Contents/MacOS/Yuzu | grep -A2 LC_RPATH || true
+      - name: Launch the binary directly for 15 seconds
+        run: |
+          cd "$RUNNER_TEMP"
+          (Yuzu.app/Contents/MacOS/Yuzu > out.log 2>&1; echo "EXIT CODE $?" >> out.log) &
+          sleep 15
+          pgrep -lf Yuzu.app || echo "NOT RUNNING after 15s"
+          cat out.log
+          pkill -f Yuzu.app/Contents/MacOS/Yuzu || true
+      - name: Launch through LaunchServices
+        run: |
+          cd "$RUNNER_TEMP"
+          open Yuzu.app; sleep 15
+          pgrep -lf Yuzu.app || echo "NOT RUNNING after open"
+          pkill -f Yuzu.app/Contents/MacOS/Yuzu || true
+      - name: Crash reports
+        if: always()
+        run: |
+          ls -la ~/Library/Logs/DiagnosticReports/ 2>/dev/null || true
+          for f in ~/Library/Logs/DiagnosticReports/Yuzu*; do echo "==== $f"; head -120 "$f"; done 2>/dev/null || true
+          log show --last 3m --predicate 'process == "Yuzu" OR eventMessage CONTAINS "Yuzu"' --style compact 2>/dev/null | tail -60 || true
