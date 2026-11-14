@@ -11,7 +11,7 @@ assert info.get('NashiExternalTools') is True
 assert not (root/'Contents/XPCServices').exists(), 'Public archive must not include a private credential broker'
 assert not (root/'Contents/Resources/Tools/ffmpeg').exists(), 'Upstream media tools use direct first-use acquisition'
 assert not (root/'Contents/Resources/Tools/LibreOffice.app').exists()
-# On GitHub Actions the build path is the shared runner's (/Users/runner/work/...),
+# On GitHub Actions the build path is the shared runner's home (user 'runner'),
 # which SwiftPM embeds in the binary; it identifies no person, so skip that check there.
 username=b'' if os.environ.get('GITHUB_ACTIONS')=='true' else os.environ.get('USER','').encode()
 issues=[];count=0
