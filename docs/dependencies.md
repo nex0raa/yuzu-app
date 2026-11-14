@@ -22,6 +22,5 @@ The first foreground launch opens the same two-group setup as macOS. Choose **Do
 - [FFmpeg 9.0.2 full build, gyan.dev](https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2), GPL. gyan.dev is listed by [FFmpeg’s official download page](https://ffmpeg.org/download.html). [Build information and sources](https://www.gyan.dev/ffmpeg/builds/).
 - The same yt-dlp and Deno releases above, using their Windows x64 assets.
 
-Exact URLs and hashes: [`Toolchain.cs`](../windows/Nashi.Core/Toolchain.cs). [Windows availability and shortcuts](../windows/README.md). [Bundled Windows library notices](../windows/THIRD-PARTY-NOTICES.txt). The preview is self-contained and does not require .NET to be installed separately.
 
 We do not change operating-system security settings or request administrator access for this setup. OS publisher trust and Nashi’s pinned update-signature verification are separate: the first public builds are not Apple-notarized or Windows Authenticode signed.

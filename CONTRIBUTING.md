@@ -5,7 +5,6 @@ behavior before proposing a large change. Small fixes can go directly to a PR.
 Use synthetic, redistributable fixtures; never attach private documents or keys.
 
 macOS: Xcode with Swift 6, macOS 13+, Apple Silicon. Run `swift test`.
-Windows source and build instructions live under `windows/`.
 
 For native UI changes, use the [isolated UI audit](docs/testing/UI-AUDIT.md) to
 check light/dark and English/Turkish scenes without dragging personal files.

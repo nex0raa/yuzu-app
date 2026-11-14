@@ -57,7 +57,6 @@ public enum AppLocalization {
     }
     // A placeholder at the very start or end of a key that touches a word ("{0} files", "Convert to {0}")
     // stands for one token such as a count, format or version, so it may not capture text with spaces.
-    // Mirrors windows/Nashi.Core/AppLocalization.cs.
     private static func wordBound(_ key: String, token: String) -> Bool {
         if key.hasPrefix(token), key.dropFirst(token.count).range(of:#"^ \p{L}"#, options:.regularExpression) != nil { return true }
         if key.hasSuffix(token), key.dropLast(token.count).range(of:#"\p{L} $"#, options:.regularExpression) != nil { return true }

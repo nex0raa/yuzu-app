@@ -20,8 +20,6 @@ An installed candidate app's `Contents/MacOS/Nashi` accepts the same flags. Pref
 Windows, from a GUI login session:
 
 ```powershell
-dotnet build windows/Nashi.Windows -c Release
-& .\windows\Nashi.Windows\bin\Release\net10.0-windows10.0.19041.0\win-x64\Nashi.exe --ui-audit build\ui-audit-windows
 ```
 
 The regular Windows native smoke suite also runs the full audit, artwork checks and range accessibility checks. Its CI artifacts include the results from both native smoke passes.
