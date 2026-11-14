@@ -49,7 +49,7 @@ final class CommandLineInterruptionTests: XCTestCase {
         var bytes = [UInt8](repeating: 0, count: 32); let count = read(fd, &bytes, bytes.count); close(fd)
         let tool = pid_t(String(decoding: bytes.prefix(max(0, count)), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
         XCTAssertGreaterThan(tool, 0)
-        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: output.path).filter { $0.hasPrefix(".Yuzu-") }.count, 1)
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: output.path).filter { $0.hasPrefix(".Nashi-") }.count, 1)
 
         kill(getpid(), SIGTERM)
         let returned = done.wait(timeout: .now() + 30) == .success

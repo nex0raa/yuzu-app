@@ -39,7 +39,7 @@ final class UpdateCredentialBrokerTests: XCTestCase {
          "NashiCredentialBrokerBundleSHA256": String(repeating: "c", count: 64)]
     }
     private func brokerConfiguration() throws -> UpdateCredentialBrokerConfiguration {
-        try UpdateCredentialBrokerConfiguration(appURL: URL(fileURLWithPath: "/synthetic/Yuzu.app"), info: brokerInfo())
+        try UpdateCredentialBrokerConfiguration(appURL: URL(fileURLWithPath: "/synthetic/Nashi.app"), info: brokerInfo())
     }
     func testBrokerConfigurationRequiresExactServiceCertificateAndFrozenHashes() throws {
         let configuration = try brokerConfiguration()

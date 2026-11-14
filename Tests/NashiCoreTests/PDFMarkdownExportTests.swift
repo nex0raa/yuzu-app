@@ -14,8 +14,8 @@ final class PDFMarkdownExportTests: XCTestCase {
         let rendered = try AttributedString(markdown: markdown, options: .init(interpretedSyntax: .full))
         XCTAssertEqual(String(rendered.characters), lines.joined(separator: " "))
         XCTAssertEqual(try String(contentsOf: export(pages: [lines], to: "txt"), encoding: .utf8), lines.joined(separator: "\n"))
-        let plain = try String(contentsOf: export(pages: [["Yuzu fixture"], ["Page two"]], to: "md"), encoding: .utf8)
-        XCTAssertEqual(plain, "Yuzu fixture\n\n---\n\nPage two")
+        let plain = try String(contentsOf: export(pages: [["Nashi fixture"], ["Page two"]], to: "md"), encoding: .utf8)
+        XCTAssertEqual(plain, "Nashi fixture\n\n---\n\nPage two")
     }
 
     private func export(pages: [[String]], to format: String) throws -> URL {

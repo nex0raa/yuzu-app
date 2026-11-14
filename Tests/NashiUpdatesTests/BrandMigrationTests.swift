@@ -30,9 +30,9 @@ final class BrandMigrationTests:XCTestCase {
         XCTAssertEqual(UpdateBrandMigration.canonical(unrelated),unrelated)
     }
     func testOldSignedArchiveURLsAreAcceptedOnlyForThisRename() throws {
-        let url=URL(string:"https://github.com/orkunisitmak/tangerine/releases/download/v0.6.0-24/Yuzu-0.6.0-24.zip")!
+        let url=URL(string:"https://github.com/orkunisitmak/tangerine/releases/download/v0.6.0-24/Nashi-0.6.0-24.zip")!
         let current=GitHubUpdateClient(repository:UpdateBrandMigration.current,token:nil)
-        XCTAssertEqual(try current.archiveReference(for:url),.release(tag:"v0.6.0-24",filename:"Yuzu-0.6.0-24.zip"))
+        XCTAssertEqual(try current.archiveReference(for:url),.release(tag:"v0.6.0-24",filename:"Nashi-0.6.0-24.zip"))
         for slug in ["other/nashi","orkunisitmak/unrelated"] {
             let unrelated=GitHubUpdateClient(repository:try GitHubRepository(slug),token:nil)
             XCTAssertThrowsError(try unrelated.archiveReference(for:url))

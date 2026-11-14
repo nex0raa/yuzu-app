@@ -30,7 +30,7 @@ final class CommandLineTests:XCTestCase {
         try ImageEngine.write(XCTUnwrap(context.makeImage()),to:input)
         let bytes=try Data(contentsOf:input)
         let options=String(decoding:try JSONSerialization.data(withJSONObject:["outputDirectory":destination.path,"imageAdjustments":["blur":2]]),as:UTF8.self)
-        XCTAssertEqual(NashiCommandLine.run(arguments:["Yuzu","tool","editImage",input.path,"--options",options]),0)
+        XCTAssertEqual(NashiCommandLine.run(arguments:["Nashi","tool","editImage",input.path,"--options",options]),0)
         let edited=try XCTUnwrap(FileManager.default.contentsOfDirectory(at:destination,includingPropertiesForKeys:nil).first)
         var pixels=[UInt8](repeating:0,count:64*64*4)
         try pixels.withUnsafeMutableBytes { buffer in
@@ -42,7 +42,7 @@ final class CommandLineTests:XCTestCase {
         let tagged=try ImageEngine.editMetadata(input,changes:tags)
         let taggedBytes=try Data(contentsOf:tagged)
         let strip=String(decoding:try JSONSerialization.data(withJSONObject:["outputDirectory":destination.path,"imageMetadata":["removeAll":true]]),as:UTF8.self)
-        XCTAssertEqual(NashiCommandLine.run(arguments:["Yuzu","tool","removeMetadata",tagged.path,"--options",strip]),0)
+        XCTAssertEqual(NashiCommandLine.run(arguments:["Nashi","tool","removeMetadata",tagged.path,"--options",strip]),0)
         let clean=try XCTUnwrap(FileManager.default.contentsOfDirectory(at:destination,includingPropertiesForKeys:nil).first{$0.lastPathComponent.contains("Clean")})
         XCTAssertNil(ImageEngine.metadata(clean)["{TIFF}.Artist"])
         XCTAssertEqual(try Data(contentsOf:input),bytes);XCTAssertEqual(try Data(contentsOf:tagged),taggedBytes)
@@ -54,7 +54,7 @@ final class CommandLineTests:XCTestCase {
         let source=Data("1\n00:00:00,125 --> 00:00:01,250\nMerhaba dünya\n".utf8);try source.write(to:input)
         for path in [destination.path,destination.absoluteString] {
             let options=String(decoding:try JSONSerialization.data(withJSONObject:["outputDirectory":path,"revealInFinder":false]),as:UTF8.self)
-            XCTAssertEqual(NashiCommandLine.run(arguments:["Yuzu","convert","vtt",input.path,"--options",options,"--json"]),0)
+            XCTAssertEqual(NashiCommandLine.run(arguments:["Nashi","convert","vtt",input.path,"--options",options,"--json"]),0)
         }
         let outputs=try FileManager.default.contentsOfDirectory(at:destination,includingPropertiesForKeys:nil)
         XCTAssertEqual(outputs.count,2)

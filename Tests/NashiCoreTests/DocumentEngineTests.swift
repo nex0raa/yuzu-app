@@ -87,7 +87,7 @@ final class DocumentEngineTests: XCTestCase {
     func testArchiveCompressionProfilesAffectZIPAndGZIPAndRemainExtractable() throws {
         let payload=root.appendingPathComponent("Compression payload",isDirectory:true)
         try FileManager.default.createDirectory(at:payload,withIntermediateDirectories:true)
-        let bytes=Data(String(repeating:"Yuzu compression fixture 0123456789\n",count:12000).utf8)
+        let bytes=Data(String(repeating:"Nashi compression fixture 0123456789\n",count:12000).utf8)
         try bytes.write(to:payload.appendingPathComponent("payload.txt"))
         let source=root.appendingPathComponent("Compression source.tar")
         try ArchiveCodec.create(from:payload,at:source,format:"tar",token:.init())
@@ -217,15 +217,15 @@ final class DocumentEngineTests: XCTestCase {
     }
 
     func testOfficeTextMarkdownAndEPUBRoutesPreserveContent() throws {
-        let markdown = try file("Document.md", "# Yuzu fixture\n\nMerhaba Şişli & café.\n\n- Apple\n- Orange\n\n**Bold text** and *italic text*.\n")
+        let markdown = try file("Document.md", "# Nashi fixture\n\nMerhaba Şişli & café.\n\n- Apple\n- Orange\n\n**Bold text** and *italic text*.\n")
         let original = try Data(contentsOf: markdown)
         let docx = try convert(markdown, "docx")
         let txt = try convert(docx, "txt")
         XCTAssertTrue(try DocumentText.read(txt).contains("Merhaba Şişli"))
         let html = try convert(docx, "html")
-        XCTAssertTrue(try DocumentText.read(html).contains("Yuzu fixture"))
+        XCTAssertTrue(try DocumentText.read(html).contains("Nashi fixture"))
         let md = try convert(docx, "md")
-        XCTAssertTrue(try DocumentText.read(md).contains("Yuzu fixture"))
+        XCTAssertTrue(try DocumentText.read(md).contains("Nashi fixture"))
         let epub = try convert(docx, "epub")
         let restored = try convert(epub, "docx")
         let restoredText = try convert(restored, "txt")
@@ -340,7 +340,7 @@ final class DocumentEngineTests: XCTestCase {
         XCTAssertThrowsError(try DocumentEngine.convert(source, to: "txt", options: .init(), token: .init()))
         var options = OperationOptions(); options.password = "fixture password"
         let text = try XCTUnwrap(DocumentEngine.convert(source, to: "txt", options: options, token: .init()).first)
-        XCTAssertTrue(try DocumentText.read(text).contains("Yuzu fixture"))
+        XCTAssertTrue(try DocumentText.read(text).contains("Nashi fixture"))
     }
 
     func testSpreadsheetConversionsPreserveQuotedCellsUnicodeAndNumbers() throws {
@@ -366,10 +366,10 @@ final class DocumentEngineTests: XCTestCase {
     func testPDFToEditableTextDOCXXLSXEPUBAndPageBasedPPTX() throws {
         let pdf = try makePDF()
         let txt = try convert(pdf, "txt")
-        XCTAssertTrue(try DocumentText.read(txt).contains("Yuzu fixture"))
+        XCTAssertTrue(try DocumentText.read(txt).contains("Nashi fixture"))
         XCTAssertTrue(try DocumentText.read(convert(pdf, "md")).contains("Page two"))
         let docx = try convert(pdf, "docx")
-        XCTAssertTrue(try DocumentText.read(convert(docx, "txt")).contains("Yuzu fixture"))
+        XCTAssertTrue(try DocumentText.read(convert(docx, "txt")).contains("Nashi fixture"))
         let epub = try convert(pdf, "epub")
         XCTAssertTrue(try DocumentText.read(convert(epub, "txt")).contains("Page two"))
         let xlsx = try convert(pdf, "xlsx")
@@ -620,7 +620,7 @@ final class DocumentEngineTests: XCTestCase {
                 context.textPosition = CGPoint(x: x, y: y)
                 CTLineDraw(CTLineCreateWithAttributedString(text), context)
             }
-            draw(page == 0 ? "Yuzu fixture" : "Page two", x: 50, y: 730)
+            draw(page == 0 ? "Nashi fixture" : "Page two", x: 50, y: 730)
             draw("Name", x: 50, y: 650); draw("Amount", x: 250, y: 650)
             draw("Apple", x: 50, y: 620); draw("12.5", x: 250, y: 620)
             context.endPDFPage()

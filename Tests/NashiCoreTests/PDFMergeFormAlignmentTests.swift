@@ -14,7 +14,7 @@ final class PDFMergeFormAlignmentTests: XCTestCase {
         let centered = try form("Centered", formQuadding: "/Q 1"), left = try form("Left", formQuadding: "")
         var options = OperationOptions(); options.outputDirectory = root
         let merged = try XCTUnwrap(PDFEngine.tool(.mergePDF, inputs: [centered, left], options: options, token: .init()).first)
-        XCTAssertEqual(try quadding(merged), ["Centered": 1, "Yuzu document 2.Left": 0])
+        XCTAssertEqual(try quadding(merged), ["Centered": 1, "Nashi document 2.Left": 0])
     }
 
     /// Effective /Q of each terminal field: its own, else the nearest parent's, else the AcroForm's.

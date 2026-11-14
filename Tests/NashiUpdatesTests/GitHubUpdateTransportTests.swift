@@ -15,10 +15,10 @@ final class GitHubUpdateTransportTests: XCTestCase {
         GitHubFixtureProtocol.install(handler)
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [GitHubFixtureProtocol.self]
-        return GitHubUpdateClient(repository: try GitHubRepository("Example/Yuzu"), token: fakeToken, configuration: configuration)
+        return GitHubUpdateClient(repository: try GitHubRepository("Example/Nashi"), token: fakeToken, configuration: configuration)
     }
     private func json(_ object: Any) throws -> Data { try JSONSerialization.data(withJSONObject: object, options: [.sortedKeys]) }
-    private func asset(_ size: Int, name: String = "Yuzu Test.zip") -> [String: Any] {
+    private func asset(_ size: Int, name: String = "Nashi Test.zip") -> [String: Any] {
         ["id": 42, "name": name, "size": size, "state": "uploaded"]
     }
     private func session() -> URLSession {
@@ -66,7 +66,7 @@ final class GitHubUpdateTransportTests: XCTestCase {
     }
 
     func testRepositoryValidationAndCodableCannotBypassScope() throws {
-        for value in ["Example/Yuzu", "https://github.com/Example/Yuzu", "https://github.com/Example/Yuzu.git/"] {
+        for value in ["Example/Nashi", "https://github.com/Example/Nashi", "https://github.com/Example/Nashi.git/"] {
             let repository = try GitHubRepository(value)
             XCTAssertEqual(repository.slug, "example/nashi")
             XCTAssertEqual(repository.websiteURL.absoluteString, "https://github.com/example/nashi")
@@ -82,9 +82,9 @@ final class GitHubUpdateTransportTests: XCTestCase {
     }
 
     func testArchiveScopeRequiresAnExactRepositoryAndPositiveAssetID() throws {
-        let client = GitHubUpdateClient(repository: try GitHubRepository("Example/Yuzu"), token: nil)
-        XCTAssertEqual(try client.archiveReference(for: URL(string: "https://github.com/Example/Yuzu/releases/download/release%2F1/Yuzu%20Test.zip")!), .release(tag: "release/1", filename: "Yuzu Test.zip"))
-        XCTAssertEqual(try client.archiveReference(for: URL(string: "https://api.github.com/repos/Example/Yuzu/releases/assets/42")!), .asset(42))
+        let client = GitHubUpdateClient(repository: try GitHubRepository("Example/Nashi"), token: nil)
+        XCTAssertEqual(try client.archiveReference(for: URL(string: "https://github.com/Example/Nashi/releases/download/release%2F1/Nashi%20Test.zip")!), .release(tag: "release/1", filename: "Nashi Test.zip"))
+        XCTAssertEqual(try client.archiveReference(for: URL(string: "https://api.github.com/repos/Example/Nashi/releases/assets/42")!), .asset(42))
         for value in ["https://github.com/example/other/releases/download/v1/Test.zip",
                       "https://github.com.evil.example/example/nashi/releases/download/v1/Test.zip",
                       "https://api.github.com/repos/example/nashi/releases/assets/0",
@@ -220,7 +220,7 @@ final class GitHubUpdateTransportTests: XCTestCase {
         }
         let bridge = GitHubUpdateBridge(client: client, appcast: feed)
         _ = try await bridge.start(); defer { bridge.stop() }
-        let original = URL(string: "https://github.com/Example/Yuzu/releases/download/release%2F1/Yuzu%20Test.zip")!
+        let original = URL(string: "https://github.com/Example/Nashi/releases/download/release%2F1/Nashi%20Test.zip")!
         let local = try bridge.archiveURL(for: original)
         XCTAssertEqual(try bridge.archiveURL(for: original), local)
         XCTAssertEqual(local.host, "127.0.0.1")
@@ -229,8 +229,8 @@ final class GitHubUpdateTransportTests: XCTestCase {
         let (downloaded, response) = try await session.data(from: local)
         XCTAssertEqual(downloaded, payload)
         XCTAssertEqual(response.expectedContentLength, Int64(payload.count))
-        XCTAssertEqual((response as? HTTPURLResponse)?.value(forHTTPHeaderField: "Content-Disposition"), "attachment; filename=\"Yuzu Test.zip\"")
-        XCTAssertEqual(response.suggestedFilename, "Yuzu Test.zip")
+        XCTAssertEqual((response as? HTTPURLResponse)?.value(forHTTPHeaderField: "Content-Disposition"), "attachment; filename=\"Nashi Test.zip\"")
+        XCTAssertEqual(response.suggestedFilename, "Nashi Test.zip")
     }
 
     func testStopCancelsTheUpstreamArchiveAndTheLoopbackConnection() async throws {

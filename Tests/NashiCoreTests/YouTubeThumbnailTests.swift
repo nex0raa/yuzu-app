@@ -70,7 +70,7 @@ final class YouTubeThumbnailTests:XCTestCase {
         guard let text=ProcessInfo.processInfo.environment["NASHI_TEST_YOUTUBE_THUMBNAIL"] else { throw XCTSkip("Live public CDN check is opt-in") }
         let info=try await WebDownloadEngine.inspect(try WebDownloadEngine.link(text))
         XCTAssertEqual(info.kind,.image);XCTAssertEqual(info.imageWidth,1280);XCTAssertEqual(info.imageHeight,720)
-        let folder=FileManager.default.temporaryDirectory.appendingPathComponent("Yuzu-Thumbnail-Test-\(UUID().uuidString)")
+        let folder=FileManager.default.temporaryDirectory.appendingPathComponent("Nashi-Thumbnail-Test-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:true);defer{try? FileManager.default.removeItem(at:folder)}
         let files=try await WebDownloadEngine.download(info,mode:.original,maximumHeight:nil,destination:folder,progress:{_,_ in})
         let file=try XCTUnwrap(files.first),image=try XCTUnwrap(CGImageSourceCreateWithURL(file as CFURL,nil))

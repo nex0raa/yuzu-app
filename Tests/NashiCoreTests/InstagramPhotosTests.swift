@@ -47,7 +47,7 @@ final class InstagramPhotosTests:XCTestCase {
     }
     func testEmptyAndUnknownSelectionLeaveNoPartialAlbum() async throws {
         let info=try parse(["entries":[photo("first"),photo("second")]])
-        let destination=FileManager.default.temporaryDirectory.appendingPathComponent("Yuzu-Gallery-\(UUID().uuidString)")
+        let destination=FileManager.default.temporaryDirectory.appendingPathComponent("Nashi-Gallery-\(UUID().uuidString)")
         defer{try? FileManager.default.removeItem(at:destination)}
         for selection:Set<Int> in [[],[999]] {
             do {
@@ -62,7 +62,7 @@ final class InstagramPhotosTests:XCTestCase {
         guard let text=ProcessInfo.processInfo.environment["NASHI_TEST_INSTAGRAM_PHOTOS"] else { throw XCTSkip("Live public Instagram check is opt-in") }
         let info=try await WebDownloadEngine.inspect(try WebDownloadEngine.link(text))
         XCTAssertGreaterThan(info.photos.count,1);XCTAssertEqual(info.modes,[.original])
-        let destination=FileManager.default.temporaryDirectory.appendingPathComponent("Yuzu-Instagram-Live-\(UUID().uuidString)")
+        let destination=FileManager.default.temporaryDirectory.appendingPathComponent("Nashi-Instagram-Live-\(UUID().uuidString)")
         defer{try? FileManager.default.removeItem(at:destination)}
         let files=try await WebDownloadEngine.download(info,mode:.original,maximumHeight:nil,destination:destination,progress:{_,_ in})
         XCTAssertEqual(files.count,info.photos.count)
