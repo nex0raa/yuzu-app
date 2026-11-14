@@ -9,9 +9,9 @@ nashi_public_build=false
 if [[ -f "$nashi_selected_update_config" ]] && plutil -type PublicRepository "$nashi_selected_update_config" >/dev/null 2>&1; then nashi_public_build=true; fi
 if [[ "$nashi_signing_mode" != ad-hoc && "$nashi_public_build" == false ]]; then python3 scripts/build-credential-broker.py; fi
 # Release binaries do not embed the builder's home-directory/source paths.
-swift build -c "$configuration" --product Nashi -Xswiftc -file-prefix-map -Xswiftc "$PWD=/nashi" -Xswiftc -file-compilation-dir -Xswiftc /nashi
+swift build -c "$configuration" --product Yuzu -Xswiftc -file-prefix-map -Xswiftc "$PWD=/nashi" -Xswiftc -file-compilation-dir -Xswiftc /nashi
 binary_dir=$(swift build -c "$configuration" --show-bin-path)
-application=${NASHI_APP_OUTPUT:-"$PWD/build/Nashi.app"}
+application=${NASHI_APP_OUTPUT:-"$PWD/build/Yuzu.app"}
 sparkle_root="$PWD/.build/artifacts/sparkle/Sparkle"
 sparkle_framework="$sparkle_root/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework"
 if [[ ! -d "$sparkle_framework" ]]; then print -u2 "Missing Sparkle framework; run swift package resolve"; exit 1; fi
@@ -21,8 +21,8 @@ if [[ -f "$application/Contents/Info.plist" ]]; then
   if [[ "$existing_identifier" != "$expected_identifier" ]]; then print -u2 "Refusing to overwrite a different application at $application"; exit 1; fi
 fi
 mkdir -p "$application/Contents/MacOS" "$application/Contents/Resources/Tools"
-cp "$binary_dir/Nashi" "$application/Contents/MacOS/Nashi"
-if [[ "$configuration" == release ]]; then /usr/bin/strip -S "$application/Contents/MacOS/Nashi"; fi
+cp "$binary_dir/Yuzu" "$application/Contents/MacOS/Yuzu"
+if [[ "$configuration" == release ]]; then /usr/bin/strip -S "$application/Contents/MacOS/Yuzu"; fi
 cp Resources/Info.plist "$application/Contents/Info.plist"
 python3 scripts/generate-localizations.py
 ditto Resources/Localizations "$application/Contents/Resources"

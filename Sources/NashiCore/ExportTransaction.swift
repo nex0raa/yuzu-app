@@ -23,7 +23,7 @@ final class ExportTransaction {
             createdFolders.append(folder);folder=folder.deletingLastPathComponent()
         }
         try manager.createDirectory(at:destination,withIntermediateDirectories:true)
-        let directory=destination.appendingPathComponent(".Nashi-\(UUID().uuidString)",isDirectory:true)
+        let directory=destination.appendingPathComponent(".Yuzu-\(UUID().uuidString)",isDirectory:true)
         try manager.createDirectory(at:directory,withIntermediateDirectories:false,attributes:[.posixPermissions:0o700])
         let area=Area(directory:directory,destination:destination)
         areas.append(area)

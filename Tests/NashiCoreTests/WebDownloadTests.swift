@@ -79,12 +79,12 @@ final class WebDownloadTests:XCTestCase {
         WARNING: [youtube] Falling back to https://www.youtube.com/watch?v=abc&token=secret
         NASHI_PROGRESS: 12.0%
         [download]  12.0% of 10MiB
-        ERROR: [Errno 30] Read-only file system: '/Volumes/Home/tester/Downloads/.Nashi-1/tmpz7.tmp'
+        ERROR: [Errno 30] Read-only file system: '/Volumes/Home/tester/Downloads/.Yuzu-1/tmpz7.tmp'
 
         """
         let details=try XCTUnwrap(WebDownloadEngine.diagnosticDetails(stderr,home:"/Volumes/Home/tester"))
         let lines=details.components(separatedBy:"\n")
-        XCTAssertEqual(lines.first,"ERROR: [Errno 30] Read-only file system: '~/Downloads/.Nashi-1/tmpz7.tmp'")
+        XCTAssertEqual(lines.first,"ERROR: [Errno 30] Read-only file system: '~/Downloads/.Yuzu-1/tmpz7.tmp'")
         XCTAssertEqual(lines.dropFirst(),["[youtube] abc: Downloading webpage","WARNING: [youtube] Falling back to <link>"])
         XCTAssertFalse(details.contains("secret"));XCTAssertFalse(details.contains("NASHI_"));XCTAssertFalse(details.contains("[download]"))
         XCTAssertNil(WebDownloadEngine.diagnosticDetails("\n  \nNASHI_STAGE:Preparing media…\n"))

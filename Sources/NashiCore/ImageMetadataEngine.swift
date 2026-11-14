@@ -3,7 +3,7 @@ import ImageIO
 import CryptoKit
 
 /// Metadata-only writes on an owned copy. The public ExifTool dependency is
-/// acquired independently; no original Nashi bridge or assets are used.
+/// acquired independently; no original Yuzu bridge or assets are used.
 public enum ImageMetadataEngine {
     private static let formats:Set<String>=["jpg","jpeg","png","heic","heif","tif","tiff","webp","gif","avif"]
     private static let appearanceTags:Set<String>=["Orientation","ImageWidth","ImageHeight","ExifImageWidth","ExifImageHeight","ColorSpace","Gamma","WhitePoint","PrimaryChromaticities","YCbCrCoefficients","YCbCrPositioning","BitsPerSample","SamplesPerPixel","Compression","PhotometricInterpretation","PlanarConfiguration","StripOffsets","StripByteCounts","RowsPerStrip","TileOffsets","TileByteCounts","YCbCrSubSampling","AnimationIterations","LoopCount","FrameCount","Duration"]

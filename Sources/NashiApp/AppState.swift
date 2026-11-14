@@ -155,7 +155,7 @@ struct JobRecord:Codable,Identifiable {
                 // Point the selection at the moved files first: changing it clears the previous result, not this one.
                 inputs=inputs.map{moved[$0] ?? $0}
                 if let failure { self.error=failure.localizedDescription } else { reportSuccess(.action("Files moved.",files:urls.map{moved[$0] ?? $0})) }
-                // Keep Library records pointing at files Nashi itself moved.
+                // Keep Library records pointing at files Yuzu itself moved.
                 let movedPaths=Dictionary(moved.map{($0.key.path,$0.value.path)},uniquingKeysWith:{first,_ in first})
                 if !movedPaths.isEmpty {
                     history=history.map{var record=$0;record.outputs=record.outputs.map{movedPaths[$0] ?? $0};return record}

@@ -1,5 +1,5 @@
 // Web platform primitives supplied by JavaScriptCore's native host. This file
-// is independently written; it contains no code from Nashi.app.
+// is independently written; it contains no code from Yuzu.app.
 if (typeof globalThis.atob !== "function") globalThis.atob = value => _nashiBase64Decode(String(value));
 if (typeof globalThis.btoa !== "function") globalThis.btoa = value => _nashiBase64Encode(String(value));
 if (typeof globalThis.TextEncoder !== "function") {

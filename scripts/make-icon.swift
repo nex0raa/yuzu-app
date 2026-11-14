@@ -24,7 +24,7 @@ import AppKit
             NSColor(srgbRed:0.976,green:0.965,blue:0.930,alpha:1).setFill();rect.fill()
             NashiArtwork.draw(in:NSRect(x:75,y:115,width:390,height:410),happy:true)
             let font=NSFont.systemFont(ofSize:118,weight:.bold);let rounded=NSFont(descriptor:font.fontDescriptor.withDesign(.rounded)!,size:118)!
-            ("Nashi" as NSString).draw(at:NSPoint(x:515,y:315),withAttributes:[.font:rounded,.foregroundColor:NSColor(srgbRed:0.17,green:0.27,blue:0.19,alpha:1)])
+            ("Yuzu" as NSString).draw(at:NSPoint(x:515,y:315),withAttributes:[.font:rounded,.foregroundColor:NSColor(srgbRed:0.17,green:0.27,blue:0.19,alpha:1)])
             ("Your files, a little sweeter." as NSString).draw(at:NSPoint(x:523,y:265),withAttributes:[.font:NSFont.systemFont(ofSize:32,weight:.medium),.foregroundColor:NSColor(srgbRed:0.30,green:0.40,blue:0.29,alpha:1)])
             ("Convert. Edit. Organize. Download." as NSString).draw(at:NSPoint(x:523,y:208),withAttributes:[.font:NSFont.systemFont(ofSize:23),.foregroundColor:NSColor(srgbRed:0.43,green:0.47,blue:0.39,alpha:1)])
         }

@@ -17,7 +17,7 @@ final class AppLocalizationTests:XCTestCase {
         XCTAssertNotEqual(AppLocalization.text("Add or change files",language:"tr"),"Add or change dosya")
         XCTAssertEqual(AppLocalization.text("3 files",language:"tr"),"3 dosya")
         XCTAssertEqual(AppLocalization.text("Convert to JPG",language:"tr"),"JPG biçimine dönüştür")
-        XCTAssertEqual(AppLocalization.text("Convert to JPG · Nashi",language:"tr"),"JPG biçimine dönüştür · Nashi")
+        XCTAssertEqual(AppLocalization.text("Convert to JPG · Yuzu",language:"tr"),"JPG biçimine dönüştür · Yuzu")
     }
     func testTurkishUppercaseKeepsLatinProductAndKeyNames() {
         XCTAssertEqual(AppLocalization.text("SHOW NASHI IN FINDER",language:"tr"),"NASHI'Yİ FINDER'DA GÖSTER")

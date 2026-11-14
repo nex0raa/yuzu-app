@@ -65,7 +65,7 @@ do {
 
     }
 
-    /// The external tools Nashi runs, including the ones its setup downloads.
+    /// The external tools Yuzu runs, including the ones its setup downloads.
     static let dependencyNames=["deno","exiftool","ffmpeg","ffprobe","soffice","yt-dlp"]
     /// Maps each tool to its path, or to null when it cannot be found.
     static func dependencyReport(resolve:(String)->URL?)->(json:[String:Any],missing:[String]) {

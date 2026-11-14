@@ -1,4 +1,4 @@
-/* Independent Nashi PDF object-graph adapter over the MIT pdf-lib 1.17.1.
+/* Independent Yuzu PDF object-graph adapter over the MIT pdf-lib 1.17.1.
    No PDF JavaScript, remote references, subprocesses or original-app code run here. */
 (function (global) {
 "use strict";
@@ -224,7 +224,7 @@ async function selectDocument(bytes,selection) {
   const page=one.getPage(index),annots=page.node.lookupMaybe(name('Annots'),PDFArray);
   if(annots)for(const ref of annots.asArray()){const dict=one.context.lookup(ref,PDFDict),action=dict.lookupMaybe(name('A'),PDFDict);let target=dict.get(name('Dest'));if(action?.get(name('S'))===name('GoTo'))target=action.get(name('D'));const resolved=target?one.context.lookup(target):null;if(resolved instanceof PDFArray){const first=resolved.get(0);if(first instanceof PDFRef&&first.toString()!==page.ref.toString())unsupported('links to other pages while duplicating a page');}}
   setPageOrder(one,[one.getPage(index)]);pruneForms(one);prunePageLinks(one);gc(one);
-  const imported=importRich(doc,one,freshPrefix(doc,"Nashi copy"),false);copies.push(imported[0]);
+  const imported=importRich(doc,one,freshPrefix(doc,"Yuzu copy"),false);copies.push(imported[0]);
  }
  const byIndex=new Map(chosen.map((p,i)=>[[...seen][i],p])),emitted=new Set(),final=[];
  for(const index of selection) {if(!emitted.has(index)){emitted.add(index);final.push(byIndex.get(index));}else final.push(copies.shift());}
@@ -243,7 +243,7 @@ async function transform(request) {
   documents.push(await selectDocument(request.sources[i],selection));
  }
  const result=documents[0];
- for(let i=1;i<documents.length;i++){check();importRich(result,documents[i],freshPrefix(result,"Nashi document "+(i+1)));}
+ for(let i=1;i<documents.length;i++){check();importRich(result,documents[i],freshPrefix(result,"Yuzu document "+(i+1)));}
  for(const [key,value]of Object.entries(request.rotations||{})) {
   const index=Number(key);if(!Number.isSafeInteger(index)||index<0||index>=result.getPageCount()||!Number.isSafeInteger(value)||value%90!==0)throw new Error("PDF rotations must be whole quarter turns on valid pages.");
   result.getPage(index).setRotation(degrees(((value%360)+360)%360));

@@ -9,7 +9,7 @@ import NashiCore
             var seen=Set<URL>();let existing=urls.filter{FileManager.default.fileExists(atPath:$0.path) && seen.insert($0).inserted}
             guard !existing.isEmpty else { throw ImportError.unavailable };return Result(urls:existing,label:"Pasted files")
         }
-        let folder=directory ?? FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("Nashi/Imports",isDirectory:true)
+        let folder=directory ?? FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("Yuzu/Imports",isDirectory:true)
         func destination(_ ext:String)throws->URL {try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:true);let date=DateFormatter();date.locale=Locale(identifier:"en_US_POSIX");date.dateFormat="yyyy-MM-dd HH-mm-ss";return folder.appendingPathComponent("Clipboard \(date.string(from:Date()))-\(UUID().uuidString.prefix(6)).\(ext)")}
         let pasted=NSImage(pasteboard:pasteboard)
         // Reject by declared size before tiffRepresentation decodes the whole bitmap.

@@ -66,7 +66,7 @@ final class DocumentAuditRegressionTests: XCTestCase {
     }
 
     func testUTF16BOMAndBOMLessTextRetainUnicode() throws {
-        let text = "Nashi Şişli — café\n"
+        let text = "Yuzu Şişli — café\n"
         let encodings: [(String, Data)] = [
             ("Little BOM.txt", Data([0xff, 0xfe]) + (try XCTUnwrap(text.data(using: .utf16LittleEndian)))),
             ("Big BOM.txt", Data([0xfe, 0xff]) + (try XCTUnwrap(text.data(using: .utf16BigEndian)))),
@@ -79,10 +79,10 @@ final class DocumentAuditRegressionTests: XCTestCase {
         let source = try fixture("BOM less document.txt", data: XCTUnwrap(text.data(using: .utf16LittleEndian)))
         let docx = try XCTUnwrap(DocumentEngine.convert(source, to: "docx", options: .init(), token: .init()).first)
         let restored = try XCTUnwrap(DocumentEngine.convert(docx, to: "txt", options: .init(), token: .init()).first)
-        XCTAssertTrue(try DocumentText.read(restored).contains("Nashi Şişli — café"))
+        XCTAssertTrue(try DocumentText.read(restored).contains("Yuzu Şişli — café"))
         let subtitle = "1\n00:00:00,100 --> 00:00:01,100\nNashi Şişli\n\n"
         let input = try fixture("BOM less.srt", data: XCTUnwrap(subtitle.data(using: .utf16LittleEndian)))
-        XCTAssertTrue(try SubtitleCodec.convert(input, to: "vtt", token: .init()).contains("Nashi Şişli"))
+        XCTAssertTrue(try SubtitleCodec.convert(input, to: "vtt", token: .init()).contains("Yuzu Şişli"))
     }
 
     func testOversizedSubtitleTimesThrowWithoutPublishingOutput() throws {

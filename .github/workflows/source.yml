@@ -34,7 +34,7 @@ jobs:
       - name: Public source boundary
         run: python3 scripts/audit-public-tree.py
       - name: Build native macOS app
-        run: swift build --product Nashi
+        run: swift build --product Yuzu
       - name: Isolated native UI, accessibility and artwork checks
         run: python3 scripts/test-native-ui.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

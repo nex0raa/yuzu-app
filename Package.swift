@@ -6,7 +6,7 @@ let package = Package(
     platforms: [.macOS(.v13)],
     products: [
         .library(name: "NashiCore", targets: ["NashiCore"]),
-        .executable(name: "Nashi", targets: ["NashiApp"]),
+        .executable(name: "Yuzu", targets: ["NashiApp"]),
         .executable(name: "nashi-cli", targets: ["NashiCLI"])
     ],
     dependencies: [

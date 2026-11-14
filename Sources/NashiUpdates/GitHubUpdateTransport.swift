@@ -220,7 +220,7 @@ public final class GitHubUpdateClient: @unchecked Sendable {
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30)
         request.setValue(accept, forHTTPHeaderField: "Accept")
         request.setValue("2022-11-28", forHTTPHeaderField: "X-GitHub-Api-Version")
-        request.setValue("Nashi-Private-Updater", forHTTPHeaderField: "User-Agent")
+        request.setValue("Yuzu-Private-Updater", forHTTPHeaderField: "User-Agent")
         if let token, !token.isEmpty {
             guard token.utf8.count <= 1024, token.unicodeScalars.allSatisfy({ $0.value >= 33 && $0.value <= 126 }) else {
                 throw GitHubUpdateTransportError.invalidToken
@@ -247,7 +247,7 @@ public final class GitHubUpdateClient: @unchecked Sendable {
         // Build a new request, rather than copying any authorization/cookies across origins.
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30)
         request.setValue("application/octet-stream", forHTTPHeaderField: "Accept")
-        request.setValue("Nashi-Private-Updater", forHTTPHeaderField: "User-Agent")
+        request.setValue("Yuzu-Private-Updater", forHTTPHeaderField: "User-Agent")
         return request
     }
 
@@ -301,7 +301,7 @@ private final class GitHubHTTPTransfer: NSObject, URLSessionDataDelegate, @unche
         self.allowAssetRedirects = allowAssetRedirects; self.sink = sink
         self.expectedSize = expectedSize; self.filename = filename
         work = OperationQueue(); work.maxConcurrentOperationCount = 1
-        work.name = "Nashi.GitHubUpdateRequest"
+        work.name = "Yuzu.GitHubUpdateRequest"
     }
 
     func start(_ completion: @escaping (Result<Data, Error>) -> Void) {
@@ -427,7 +427,7 @@ public final class GitHubUpdateBridge: @unchecked Sendable {
     private let client: GitHubUpdateClient
     private let appcast: Data
     private let nonce = UUID().uuidString + UUID().uuidString
-    private let queue = DispatchQueue(label: "Nashi.PrivateUpdateBridge")
+    private let queue = DispatchQueue(label: "Yuzu.PrivateUpdateBridge")
     private let lock = NSLock()
     private var listener: NWListener?
     private var feedURL: URL?

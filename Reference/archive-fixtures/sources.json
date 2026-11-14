@@ -29,7 +29,7 @@
   },
   {
     "file": "nashi_encrypted_headers.7z",
-    "source": "Generated for Nashi: one synthetic note, 7z a -t7z -mhe=on -ppassword (NanaZip 7.0)",
+    "source": "Generated for Yuzu: one synthetic note, 7z a -t7z -mhe=on -ppassword (NanaZip 7.0)",
     "sha256": "c7ef3d8a60ad301c27889cf48fae6993c04162fa1694e69dfd2a967fd01e581f",
     "bytes": 253,
     "purpose": "7z with encrypted contents and headers, password \"password\", for archive password errors"

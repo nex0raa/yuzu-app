@@ -1,6 +1,6 @@
 # Isolated UI audit
 
-Nashi's native application has an explicit audit mode for reviewing real views without manually dragging files. It starts before the normal application delegate/single-instance setup. It does not enable global hooks, start the updater, install tools, request Accessibility/Screen Recording permissions, or read the user's Library or system clipboard.
+Yuzu's native application has an explicit audit mode for reviewing real views without manually dragging files. It starts before the normal application delegate/single-instance setup. It does not enable global hooks, start the updater, install tools, request Accessibility/Screen Recording permissions, or read the user's Library or system clipboard.
 
 The Mac audit uses a temporary UserDefaults suite and generated temporary files. The Windows audit keeps generated fixtures and its private Library/preferences below the chosen output directory. Output must be empty or contain the audit's `.nashi-ui-audit` marker; unrelated directories are rejected.
 
@@ -9,13 +9,13 @@ The Mac audit uses a temporary UserDefaults suite and generated temporary files.
 macOS, from a GUI login session:
 
 ```sh
-swift build --product Nashi
-.build/debug/Nashi --ui-audit build/ui-audit-mac
-.build/debug/Nashi --range-accessibility-smoke build/range-accessibility-mac
-.build/debug/Nashi --file-artwork-smoke build/file-artwork-mac
+swift build --product Yuzu
+.build/debug/Yuzu --ui-audit build/ui-audit-mac
+.build/debug/Yuzu --range-accessibility-smoke build/range-accessibility-mac
+.build/debug/Yuzu --file-artwork-smoke build/file-artwork-mac
 ```
 
-An installed candidate app's `Contents/MacOS/Nashi` accepts the same flags. Prefer a packaged candidate for review of bundled resources. Use `--hold` on the Mac audit to inspect its final scene with Computer Use; `--keep-range-open` keeps the range fixture open after its checks.
+An installed candidate app's `Contents/MacOS/Yuzu` accepts the same flags. Prefer a packaged candidate for review of bundled resources. Use `--hold` on the Mac audit to inspect its final scene with Computer Use; `--keep-range-open` keeps the range fixture open after its checks.
 
 Windows, from a GUI login session:
 
@@ -24,7 +24,7 @@ Windows, from a GUI login session:
 
 The regular Windows native smoke suite also runs the full audit, artwork checks and range accessibility checks. Its CI artifacts include the results from both native smoke passes.
 
-On Mac, `python3 scripts/test-native-ui.py` runs the matrix, 18 adversarial audit-validator cases, range/artwork checks, invalid-argument checks and the output overwrite guard. It wraps a bare SwiftPM executable in a disposable QA bundle with the actual localization resources and framework; otherwise older macOS versions can silently fall back to English for native controls. This minimal QA bundle does not package or install optional tools. The source workflow publishes its `mac-native-ui` artifact. Pass `--app /absolute/path/to/Nashi.app/Contents/MacOS/Nashi` to review a full packaged candidate with the same script.
+On Mac, `python3 scripts/test-native-ui.py` runs the matrix, 18 adversarial audit-validator cases, range/artwork checks, invalid-argument checks and the output overwrite guard. It wraps a bare SwiftPM executable in a disposable QA bundle with the actual localization resources and framework; otherwise older macOS versions can silently fall back to English for native controls. This minimal QA bundle does not package or install optional tools. The source workflow publishes its `mac-native-ui` artifact. Pass `--app /absolute/path/to/Yuzu.app/Contents/MacOS/Yuzu` to review a full packaged candidate with the same script.
 
 Both audit commands accept these optional filters:
 

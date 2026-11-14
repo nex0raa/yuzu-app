@@ -11,7 +11,7 @@
 		<string>fr</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Nashi</string>
+	<string>Yuzu</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -26,13 +26,13 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>Nashi</string>
+	<string>Yuzu</string>
 	<key>CFBundleIconFile</key>
-	<string>NashiIcon</string>
+	<string>YuzuIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>local.tangerine.replica</string>
+	<string>local.yuzu.app</string>
 	<key>CFBundleName</key>
-	<string>Nashi</string>
+	<string>Yuzu</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

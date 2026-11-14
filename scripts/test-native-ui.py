@@ -13,7 +13,7 @@ def bundle_for_audit(binary, output):
     if any(parent.suffix == ".app" for parent in binary.parents):
         return binary
     repository = Path(__file__).resolve().parent.parent
-    candidate = output / "application/Nashi UI Audit.app"
+    candidate = output / "application/Yuzu UI Audit.app"
     marker = candidate.parent / ".nashi-ui-audit-app"
     if candidate.exists():
         if not marker.is_file():
@@ -23,10 +23,10 @@ def bundle_for_audit(binary, output):
     resources = contents / "Resources"
     (contents / "MacOS").mkdir(parents=True)
     resources.mkdir()
-    shutil.copy2(binary, contents / "MacOS/Nashi")
+    shutil.copy2(binary, contents / "MacOS/Yuzu")
     with (repository / "Resources/Info.plist").open("rb") as stream:
         info = plistlib.load(stream)
-    info.update(CFBundleIdentifier="local.nashi.ui-audit", CFBundleDisplayName="Nashi UI Audit",
+    info.update(CFBundleIdentifier="local.nashi.ui-audit", CFBundleDisplayName="Yuzu UI Audit",
                 NashiExternalTools=True)
     # This candidate is only used by the three explicit own-window QA entrypoints.
     info.pop("CFBundleDocumentTypes", None)
@@ -44,13 +44,13 @@ def bundle_for_audit(binary, output):
                    check=True, capture_output=True)
     subprocess.run(["codesign", "--force", "--sign", "-", "--options", "0", "--timestamp=none", str(candidate)],
                    check=True, capture_output=True)
-    marker.write_text("Generated Nashi own-window QA bundle; no optional tool installers.\n")
-    return contents / "MacOS/Nashi"
+    marker.write_text("Generated Yuzu own-window QA bundle; no optional tool installers.\n")
+    return contents / "MacOS/Yuzu"
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--app", default=".build/debug/Nashi")
+    parser.add_argument("--app", default=".build/debug/Yuzu")
     parser.add_argument("--output", default="build/native-ui")
     args = parser.parse_args()
     app, output = Path(args.app).resolve(), Path(args.output).resolve()

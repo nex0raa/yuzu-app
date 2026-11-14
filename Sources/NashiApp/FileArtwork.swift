@@ -19,7 +19,7 @@ struct FileArtworkStamp: Equatable, Sendable {
 }
 
 /// macOS 13 predates AppKit's NSImage Sendable annotation. Ownership crosses the
-/// worker boundary once in this immutable envelope: Nashi never mutates the image,
+/// worker boundary once in this immutable envelope: Yuzu never mutates the image,
 /// the cache only stores its reference, and consumers only render it on the UI actor.
 /// This avoids retroactively declaring every NSImage instance safe to share.
 final class FileArtworkImage: @unchecked Sendable {

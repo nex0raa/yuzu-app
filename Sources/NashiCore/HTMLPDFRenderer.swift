@@ -50,7 +50,7 @@ enum HTMLPDFRenderer {
         private let input: URL, output: URL, folder: URL, page: URL
         private var view: WKWebView?, window: NSWindow?, navigation: WKNavigation?, rules: URL?, printing = false
         // AppKit saves into this file of the job's own, which a cancelled caller cannot remove while printing runs.
-        private let draft = FileManager.default.temporaryDirectory.appendingPathComponent("Nashi-\(UUID().uuidString).pdf")
+        private let draft = FileManager.default.temporaryDirectory.appendingPathComponent("Yuzu-\(UUID().uuidString).pdf")
         private lazy var info = Job.printInfo(draft)
         // Points available for content once the margins are taken from the paper.
         private var printable: NSSize { NSSize(width: info.paperSize.width - info.leftMargin - info.rightMargin, height: info.paperSize.height - info.topMargin - info.bottomMargin) }
@@ -91,7 +91,7 @@ enum HTMLPDFRenderer {
             configuration.preferences.isFraudulentWebsiteWarningEnabled = false
             if #available(macOS 13.3, *) { configuration.preferences.shouldPrintBackgrounds = true }
             configuration.userContentController.add(list)
-            // Nashi serves the page and its files itself, so WebKit gets no read access to the disk.
+            // Yuzu serves the page and its files itself, so WebKit gets no read access to the disk.
             configuration.setURLSchemeHandler(self, forURLScheme: HTMLPDFRenderer.scheme)
             let view = WKWebView(frame: NSRect(origin: .zero, size: printable), configuration: configuration)
             // A dark app appearance must not switch the page to its dark color scheme.

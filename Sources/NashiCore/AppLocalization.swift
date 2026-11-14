@@ -88,8 +88,8 @@ public enum AppLocalization {
         guard let table = tables[normalizedLanguage(language)] else { return source }
         if let value = table.entries[source] ?? table.uppercase[source] { return value }
         guard source.count<16_384 else { return source }
-        // Window titles: translate the title, keep the app suffix ("Convert to JPG · Nashi").
-        let suffix = " · Nashi"
+        // Window titles: translate the title, keep the app suffix ("Convert to JPG · Yuzu").
+        let suffix = " · Yuzu"
         if source.count > suffix.count, source.hasSuffix(suffix) { return text(String(source.dropLast(suffix.count)), language: language) + suffix }
         // Batch status lines: "File 2 of 5 · <status>" (ConversionEngine.run). A template capture is never translated,
         // so translate the prefix and the status separately.

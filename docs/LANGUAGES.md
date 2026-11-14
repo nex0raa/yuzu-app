@@ -1,6 +1,6 @@
 # Interface language
 
-Choose **Settings → General → Language → English / Türkçe / Français**. English and Türkçe are available on both desktops; Français is currently macOS only. The choice is saved with the user's preferences and applies to open Nashi views without restarting or discarding an editor draft. Existing installations keep English until a language is selected.
+Choose **Settings → General → Language → English / Türkçe / Français**. English and Türkçe are available on both desktops; Français is currently macOS only. The choice is saved with the user's preferences and applies to open Yuzu views without restarting or discarding an editor draft. Existing installations keep English until a language is selected.
 
 Turkish and French include Home, Library, Settings, tool and action names, window arrangement, editor controls and completion/progress UI. Search accepts translated tool names. File names, clipboard/document contents, metadata values, format identifiers and shortcut keys remain unchanged. Native operating-system dialogs and third-party playback controls follow their platform's language behavior.
 

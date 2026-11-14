@@ -93,7 +93,7 @@ struct SettingsView:View {
                     HStack { Text("Wheel finish");Spacer();Picker("Wheel finish",selection:$fanTheme) { Text("Glass").tag("glass");Text("Solid").tag("metallic") }.labelsHidden().pickerStyle(.segmented).frame(width:230) }
                     Divider()
                     Toggle("Launch at login",isOn:Binding(get:{launch},set:updateLaunch)).disabled(launchUnavailable)
-                    if launchNeedsApproval { HStack { Text("Allow Nashi in macOS Login Items.").font(.caption).foregroundStyle(.secondary);Spacer();Button("Open Login Items") { SMAppService.openSystemSettingsLoginItems() } } }
+                    if launchNeedsApproval { HStack { Text("Allow Yuzu in macOS Login Items.").font(.caption).foregroundStyle(.secondary);Spacer();Button("Open Login Items") { SMAppService.openSystemSettingsLoginItems() } } }
                     if launchUnavailable { Text("Launch at login is unavailable for this copy.").font(.caption).foregroundStyle(.secondary) }
                     if let launchError { Text(launchError).font(.caption).foregroundStyle(.secondary) }
                     HStack {
@@ -104,7 +104,7 @@ struct SettingsView:View {
                     Text("Sound follows your Mac’s volume. Haptics need a compatible Force Touch trackpad.")
                         .font(.caption).foregroundStyle(.secondary).frame(maxWidth:.infinity,alignment:.leading)
                     Toggle("Subtle animations",isOn:Binding(get:{!reduceAnimations},set:{reduceAnimations = !$0}))
-                    if systemReducedMotion { Text("macOS Reduce Motion is on. Nashi keeps motion off.").font(.caption).foregroundStyle(.secondary) }
+                    if systemReducedMotion { Text("macOS Reduce Motion is on. Yuzu keeps motion off.").font(.caption).foregroundStyle(.secondary) }
                 }.padding(10)
             }
             GroupBox("Drag shortcuts") {
@@ -130,8 +130,8 @@ struct SettingsView:View {
                             Button("Open permission settings…") { WindowManagementController.requestAccess() }
                         }
                         if Bundle.main.bundleIdentifier == "local.tangerine.replica" {
-                            Text("Upgraded from Tangerine? macOS may still show the previous name. Choose this Nashi app when adding it to \(WindowManagementController.permissionName).").font(.caption).foregroundStyle(.secondary)
-                            Button("Show Nashi in Finder") { NSWorkspace.shared.activateFileViewerSelecting([Bundle.main.bundleURL]) }
+                            Text("Upgraded from Tangerine? macOS may still show the previous name. Choose this Yuzu app when adding it to \(WindowManagementController.permissionName).").font(.caption).foregroundStyle(.secondary)
+                            Button("Show Yuzu in Finder") { NSWorkspace.shared.activateFileViewerSelecting([Bundle.main.bundleURL]) }
                         }
                     } else { Label("\(WindowManagementController.permissionName) is enabled",systemImage:"checkmark.circle").font(.caption).foregroundStyle(.secondary) }
                 }.padding(10)
@@ -144,7 +144,7 @@ struct SettingsView:View {
                 }.padding(10)
             }
             DisclosureGroup("Additional options") { VStack(alignment:.leading,spacing:13) {
-                Toggle("Enable Nashi",isOn:$enabled)
+                Toggle("Enable Yuzu",isOn:$enabled)
                 Toggle("Reveal finished files in Finder",isOn:$reveal)
                 HStack { Text("Wheel size");Slider(value:$wheelScale,in:0.85...1.4).frame(width:230);Text(Int(wheelScale*100),format:.percent).monospacedDigit().frame(width:40) }
             }.padding(.top,12) }
@@ -252,7 +252,7 @@ private struct FolderSettingsView:View {
     var body:some View {
         VStack(alignment:.leading,spacing:18) {
             Text("Folders").font(.title2.weight(.semibold))
-            Text("Nashi saves results beside the originals. Allow a folder once to include every folder inside it.").foregroundStyle(.secondary)
+            Text("Yuzu saves results beside the originals. Allow a folder once to include every folder inside it.").foregroundStyle(.secondary)
             if folders.isEmpty { VStack(spacing:9) { Image(systemName:"folder.badge.questionmark").font(.system(size:40)).foregroundStyle(.secondary);Text("No folders allowed yet.").foregroundStyle(.secondary) }.frame(maxWidth:.infinity,maxHeight:.infinity) }
             else { List { ForEach(folders) { grant in HStack {
                 Image(systemName:"folder").foregroundStyle(Color.nashi)
@@ -266,7 +266,7 @@ private struct FolderSettingsView:View {
     private func refresh() { folders=FolderAccessPreferences.grants() }
     private func choose(home:Bool) {
         let panel=NSOpenPanel();panel.title=L10n.text("Allow Folder Access");panel.prompt=L10n.text("Allow Access");panel.canChooseFiles=false;panel.canChooseDirectories=true;panel.allowsMultipleSelection=true
-        panel.message=L10n.text("Choose a folder where Nashi may save results. Every folder inside it is included.")
+        panel.message=L10n.text("Choose a folder where Yuzu may save results. Every folder inside it is included.")
         if home { panel.directoryURL=FileManager.default.homeDirectoryForCurrentUser }
         if panel.runModal() == .OK { do { try FolderAccessPreferences.add(panel.urls);error=nil;refresh() } catch { self.error=error.localizedDescription } }
     }
@@ -296,7 +296,7 @@ private struct AboutSettingsView:View {
         VStack(spacing:17) {
             Spacer()
             NashiMark(size:96,happy:true)
-            Text("Nashi").font(.system(size:32,weight:.bold,design:.rounded))
+            Text("Yuzu").font(.system(size:32,weight:.bold,design:.rounded))
             Text("Your files, a little sweeter.").font(.headline)
             Text("Version \(version)").foregroundStyle(.secondary)
             Text("A little less file fuss. A little more flow.\nConvert, edit, and organize — right on your Mac.").multilineTextAlignment(.center).foregroundStyle(.secondary)

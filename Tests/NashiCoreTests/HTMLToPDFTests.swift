@@ -122,7 +122,7 @@ final class HTMLToPDFTests: XCTestCase {
 
     func testCancellationAndPageLimitsPublishNothing() throws {
         let long = site.appendingPathComponent("Long.html")
-        try ("<!doctype html><meta charset=\"utf-8\">" + String(repeating: "<p>" + String(repeating: "Nashi cancellation fixture. ", count: 60) + "</p>", count: 600)).write(to: long, atomically: true, encoding: .utf8)
+        try ("<!doctype html><meta charset=\"utf-8\">" + String(repeating: "<p>" + String(repeating: "Yuzu cancellation fixture. ", count: 60) + "</p>", count: 600)).write(to: long, atomically: true, encoding: .utf8)
         let token = CancellationToken()
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) { token.cancel() }
         XCTAssertThrowsError(try ConversionEngine.run(.init(inputs: [long], operation: .convert("pdf")), token: token)) { error in
@@ -148,7 +148,7 @@ final class HTMLToPDFTests: XCTestCase {
         // so the conversion is cancelled and its work folder removed before AppKit saves the PDF.
         _ = NSApplication.shared
         let input = site.appendingPathComponent("Held.html")
-        try ("<!doctype html><meta charset=\"utf-8\"><title>Held</title><script>addEventListener('beforeprint', () => { document.title = 'PRINTING'; const end = Date.now() + 4000; while (Date.now() < end) {} })</script>" + String(repeating: "<p>Nashi cancellation fixture.</p>", count: 50)).write(to: input, atomically: true, encoding: .utf8)
+        try ("<!doctype html><meta charset=\"utf-8\"><title>Held</title><script>addEventListener('beforeprint', () => { document.title = 'PRINTING'; const end = Date.now() + 4000; while (Date.now() < end) {} })</script>" + String(repeating: "<p>Yuzu cancellation fixture.</p>", count: 50)).write(to: input, atomically: true, encoding: .utf8)
         let token = CancellationToken(), lock = NSLock()
         var finished = false, failure: Error?, alert: String?
         DispatchQueue.global().async {

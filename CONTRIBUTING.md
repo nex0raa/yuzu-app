@@ -14,7 +14,7 @@ New output formats and tools must preserve originals, choose unique output names
 clean partial exports on cancellation, and avoid shell interpolation. Test these
 boundaries and actual output metadata rather than only checking file existence.
 
-Nashi is independently developed and inspired by Tangerine's drag-and-wheel
+Yuzu is independently developed and inspired by Tangerine's drag-and-wheel
 interaction. Do not contribute proprietary Tangerine code, binaries, artwork,
 screenshots or decompiled resources. Third-party licenses must be preserved.
 
