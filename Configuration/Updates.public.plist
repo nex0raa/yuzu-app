@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>FeedURL</key>
-	<string>https://github.com/__GITHUB_USER__/yuzu-app/releases/latest/download/appcast.xml</string>
+	<string>https://github.com/nex0raa/yuzu-app/releases/latest/download/appcast.xml</string>
 	<key>PublicEDKey</key>
 	<string>u5kyDlIks9LwD5hn2BomLIPr7sCq2//1mfw6Q1dYhlA=</string>
 	<key>PublicRepository</key>
-	<string>__GITHUB_USER__/yuzu-app</string>
+	<string>nex0raa/yuzu-app</string>
 </dict>
 </plist>

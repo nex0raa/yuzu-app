@@ -19,7 +19,7 @@ import NashiCore
                     group("Office tools", symbol: "doc.text", ready: model.status.officeReady,
                           detail: "LibreOffice 26.8.1 enables Office document conversions. A 285 MB download; about 1 GB installed. MPL 2.0 and its included third-party licenses.",
                           button: "Download office tools", id: "SetupOffice", action: { model.install(.office) })
-                    Link("Upstream versions, licenses and source links", destination: URL(string: "https://github.com/__GITHUB_USER__/yuzu-app/blob/main/docs/dependencies.md")!).font(.callout)
+                    Link("Upstream versions, licenses and source links", destination: URL(string: "https://github.com/nex0raa/yuzu-app/blob/main/docs/dependencies.md")!).font(.callout)
                 }.padding(28)
             }
             Divider()

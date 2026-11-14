@@ -11,7 +11,7 @@ and editing run on your Mac.
 
 ## Download
 
-**[Yuzu-macOS-arm64.zip](https://github.com/__GITHUB_USER__/yuzu-app/releases/latest/download/Yuzu-macOS-arm64.zip)** · Apple Silicon, macOS 13 or later · [All releases](https://github.com/__GITHUB_USER__/yuzu-app/releases)
+**[Yuzu-macOS-arm64.zip](https://github.com/nex0raa/yuzu-app/releases/latest/download/Yuzu-macOS-arm64.zip)** · Apple Silicon, macOS 13 or later · [All releases](https://github.com/nex0raa/yuzu-app/releases)
 
 1. Unzip it and move **Yuzu.app** to **Applications**.
 2. Open it. Yuzu is not notarized by Apple, so the first time macOS may refuse.
