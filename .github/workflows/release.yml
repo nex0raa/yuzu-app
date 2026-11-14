@@ -60,6 +60,25 @@ jobs:
           umask 077; printf '%s' "$SPARKLE_PRIVATE_KEY" > "$key_file"
           NASHI_UPDATE_KEY_FILE="$key_file" scripts/prepare-public-release.sh "$VERSION" "$BUILD"
           rm -f "$key_file"
+      - name: Launch the packaged app from the ZIP before publishing
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          BUILD: ${{ steps.version.outputs.build }}
+        run: |
+          check="$RUNNER_TEMP/launch-check"; mkdir -p "$check"
+          ditto -x -k "build/public-upload-$VERSION-$BUILD/Yuzu-macOS-arm64.zip" "$check"
+          # Move the build folder away so the app cannot fall back to build paths.
+          mv .build "$RUNNER_TEMP/build-hidden"
+          open "$check/Yuzu.app"; sleep 15
+          if ! pgrep -f "$check/Yuzu.app/Contents/MacOS/Yuzu" >/dev/null; then
+            echo "Yuzu quit right after launch. Recent crash log:"
+            ls -t ~/Library/Logs/DiagnosticReports/Yuzu* 2>/dev/null | head -1 | xargs -I{} head -60 {}
+            log show --last 1m --predicate 'process == "Yuzu"' --style compact | grep -i "fatal\|error" | tail -20
+            exit 1
+          fi
+          pkill -f "$check/Yuzu.app/Contents/MacOS/Yuzu" || true
+          mv "$RUNNER_TEMP/build-hidden" .build
+          echo "Yuzu launched and kept running."
       - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
