@@ -18,6 +18,7 @@ for path in root.rglob('*'):
     count+=1;data=path.read_bytes()
     if path.name.startswith('.env') or path.suffix.lower() in {'.p12','.pfx','.key','.mobileprovision'}:issues.append(str(path.relative_to(root)))
     patterns=[rb'-----BEGIN (?:[A-Z]+ )?PRIVATE KEY-----',rb'github_pat_[A-Za-z0-9_]{20,}',rb'gh[pousr]_[A-Za-z0-9]{20,}']
-    if any(re.search(pattern,data) for pattern in patterns) or username and len(username)>5 and username in data:issues.append(str(path.relative_to(root)))
+    # Look for the builder's home path, not the bare username: CI runs as 'runner', a common word.
+    if any(re.search(pattern,data) for pattern in patterns) or username and len(username)>2 and b'/Users/'+username+b'/' in data:issues.append(str(path.relative_to(root)))
 if issues:sys.exit('Release audit failed: '+', '.join(sorted(set(issues))))
 print(f'PASS public app boundary: {count} files; no local account, signing artifacts or token patterns')
