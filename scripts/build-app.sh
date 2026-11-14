@@ -65,7 +65,7 @@ fi
 ditto Resources/Sounds "$application/Contents/Resources/Sounds"
 cp Resources/PagesInterop.js "$application/Contents/Resources/PagesInterop.js"
 cp Resources/PDFLib.js Resources/PDFInterop.js "$application/Contents/Resources/"
-if [[ -f Resources/NashiIcon.icns ]]; then cp Resources/NashiIcon.icns "$application/Contents/Resources/NashiIcon.icns"; fi
+cp Resources/YuzuIcon.icns "$application/Contents/Resources/YuzuIcon.icns"
 cp Resources/THIRD-PARTY-NOTICES.txt "$application/Contents/Resources/THIRD-PARTY-NOTICES.txt"
 ditto Resources/licenses "$application/Contents/Resources/licenses"
 cp "$sparkle_root/LICENSE" "$application/Contents/Resources/licenses/Sparkle-LICENSE.txt"
