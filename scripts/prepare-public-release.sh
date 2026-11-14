@@ -16,7 +16,8 @@ python3 scripts/archive-app.py "$NASHI_APP_OUTPUT" "$archive"
 key_options=(--account "${NASHI_UPDATE_KEY_ACCOUNT:-local.tangerine.replica}")
 if [[ -n "${NASHI_UPDATE_KEY_FILE:-}" ]]; then key_options=(--ed-key-file "$NASHI_UPDATE_KEY_FILE"); fi
 sparkle="$PWD/.build/artifacts/sparkle/Sparkle/bin"
-prefix="https://github.com/orkunisitmak/nashi-app/releases/download/v$1-$2/"
+repository=$(plutil -extract PublicRepository raw -o - "$NASHI_UPDATE_CONFIG")
+prefix="https://github.com/$repository/releases/download/v$1-$2/"
 "$sparkle/generate_appcast" "${key_options[@]}" --download-url-prefix "$prefix" "$feed_directory"
 "$sparkle/sign_update" "${key_options[@]}" --verify "$feed_directory/appcast.xml"
 python3 scripts/validate-update-feed.py "$feed_directory/appcast.xml" "$2"
